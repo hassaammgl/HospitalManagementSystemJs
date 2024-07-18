@@ -14,6 +14,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { onSubmitSignup } from "@/components/server/docterauth";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Signup = () => {
   const form = useForm({
@@ -112,7 +119,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Date of Birth</FormLabel>
                 <FormControl>
-                  <Input  type="date" {...field} />
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -124,8 +131,11 @@ const Signup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Phone number</FormLabel>
+                <FormDescription>
+                  Enter your phone number in this [+12345678934] foramt.
+                </FormDescription>
                 <FormControl>
-                  <Input placeholder="+123456789" type="tel" {...field} />
+                  <Input placeholder="+12345678934" type="number" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -133,32 +143,35 @@ const Signup = () => {
           />
           <FormField
             control={form.control}
-            name="username"
+            name="gender"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Gender</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="username"
+            name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="Address here" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
