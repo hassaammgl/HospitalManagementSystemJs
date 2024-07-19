@@ -176,51 +176,7 @@ const Signup = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="specialties"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Specialties</FormLabel>
-                <FormControl>
-                  <Select {...field}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your specialties" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "General Surgery", "Neurology", "Nephrology", "Obstetrics and Gynecology", "Oncology", "Orthopedic Surgery", "Otolaryngology", "Pathology", "Pediatrics", "Psychiatry", "Pulmonology", "Rheumatology", "Urology"].map((specialty) => (
-                        <SelectItem key={specialty} value={specialty}>{specialty}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="availableDays"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Available Days</FormLabel>
-                <FormControl>
-                  <Select {...field}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select your available days" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
-                        <SelectItem key={day} value={day}>{day}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
+  {/* ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "General Surgery", "Neurology", "Nephrology", "Obstetrics and Gynecology", "Oncology", "Orthopedic Surgery", "Otolaryngology", "Pathology", "Pediatrics", "Psychiatry", "Pulmonology", "Rheumatology", "Urology"] */}
           <Button type="submit">Submit</Button>
         </form>
       </Form>
