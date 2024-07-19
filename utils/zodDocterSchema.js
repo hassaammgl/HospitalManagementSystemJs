@@ -29,7 +29,7 @@ export const docterSchema = z.object({
     .max(20, {
       message: "Password must be less than 20 characters.",
     }),
-  dob: z.date({
+  dob: z.string({
     message: "Please enter a valid date.",
   }),
   phone: z
@@ -45,7 +45,5 @@ export const docterSchema = z.object({
   }),
 
   avatar: z.string(),
-  specialties: z.array(z.string()),
   address: z.string(),
-  availableDays: z.array(z.string()),
 });

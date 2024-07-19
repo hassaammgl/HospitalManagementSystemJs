@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { onSubmitSignup } from "@/components/server/docterauth";
+import { onSubmitSignup as onSubmit } from "@/components/server/docterauth";
 import {
   Select,
   SelectContent,
@@ -21,8 +21,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 
 const Signup = () => {
+  const [avdays, setAvDays] = useState([]);
+  const [specs, setSpecs] = useState([]);
+
   const form = useForm({
     resolver: zodResolver(docterSchema),
     defaultValues: {
@@ -40,10 +45,14 @@ const Signup = () => {
     },
   });
 
+  const onSubmitSignup = async (values) => {
+    console.log(values.username);
+  };
+
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmitSignup)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
             name="username"
@@ -148,7 +157,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Gender</FormLabel>
                 <FormControl>
-                  <Select {...field}>
+                  <Select onValueChange={field.onChange} defaultValue="male">
                     <SelectTrigger>
                       <SelectValue placeholder="Select your gender" />
                     </SelectTrigger>
@@ -176,7 +185,38 @@ const Signup = () => {
               </FormItem>
             )}
           />
-  {/* ["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "General Surgery", "Neurology", "Nephrology", "Obstetrics and Gynecology", "Oncology", "Orthopedic Surgery", "Otolaryngology", "Pathology", "Pediatrics", "Psychiatry", "Pulmonology", "Rheumatology", "Urology"] */}
+          <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Available Days
+          </span>
+          {days.map((day) => (
+            <div key={day}>
+              <Checkbox
+                value={day}
+                onChange={(e) =>
+                  setAvDays((prevDays) => [...prevDays, e.target.value])
+                }
+              />
+              <label className="text-gray-500 text-sm">{day}</label>
+            </div>
+          ))}
+
+          <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Specialties
+          </span>
+          {specialties.map((specs) => (
+            <div key={specs}>
+              <Checkbox
+                value={specs}
+                onChange={(e) =>
+                  setSpecs((prevSpecs) => [...prevSpecs, e.target.value])
+                }
+              />
+              <label className="text-gray-500 text-sm">
+                {specs}
+              </label>
+            </div>
+          ))}
+
           <Button type="submit">Submit</Button>
         </form>
       </Form>
@@ -185,3 +225,33 @@ const Signup = () => {
 };
 
 export default Signup;
+
+const specialties = [
+  "Cardiology",
+  "Dermatology",
+  "Endocrinology",
+  "Gastroenterology",
+  "General Surgery",
+  "Neurology",
+  "Nephrology",
+  "Obstetrics and Gynecology",
+  "Oncology",
+  "Orthopedic Surgery",
+  "Otolaryngology",
+  "Pathology",
+  "Pediatrics",
+  "Psychiatry",
+  "Pulmonology",
+  "Rheumatology",
+  "Urology",
+];
+
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
