@@ -1,5 +1,5 @@
 "use client";
-import { docterSchema } from "@/lib/zodDocterSchema";
+import { docterSchema } from "@/utils/zodDocterSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -148,7 +148,7 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Gender</FormLabel>
                 <FormControl>
-                  <Select>
+                  <Select {...field}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select your gender" />
                     </SelectTrigger>
@@ -178,32 +178,44 @@ const Signup = () => {
           />
           <FormField
             control={form.control}
-            name="username"
+            name="specialties"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Specialties</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Select {...field}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your specialties" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {["Cardiology", "Dermatology", "Endocrinology", "Gastroenterology", "General Surgery", "Neurology", "Nephrology", "Obstetrics and Gynecology", "Oncology", "Orthopedic Surgery", "Otolaryngology", "Pathology", "Pediatrics", "Psychiatry", "Pulmonology", "Rheumatology", "Urology"].map((specialty) => (
+                        <SelectItem key={specialty} value={specialty}>{specialty}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="username"
+            name="availableDays"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Available Days</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Select {...field}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your available days" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
+                        <SelectItem key={day} value={day}>{day}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
