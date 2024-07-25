@@ -6,9 +6,6 @@ const adminSchema = new Schema({
     required: true,
     unique: true,
   },
-  avatar: {
-    type: String,
-  },
   password: {
     type: String,
     required: true,
@@ -39,7 +36,7 @@ const adminSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  clinicOrHospitalName: {
+  HospitalName: {
     type: String,
     required: true,
   },

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const docterSchema = z.object({
+export const AdminSchema = z.object({
   username: z
     .string()
     .min(2, {
@@ -37,13 +37,14 @@ export const docterSchema = z.object({
     .min(11, {
       message: "Phone number must be 11 characters long.",
     })
-    .max(11, {
-      message: "Phone number must be 11 characters long.",
+    .max(13, {
+      message: "Phone number must be 13 characters long.",
     }),
   gender: z.string({
     message: "Please select your gender.",
   }),
 
-  avatar: z.string(),
   address: z.string(),
+  HospitalName: z.string(),
 });
+

@@ -1,5 +1,5 @@
 "use client";
-import { docterSchema } from "@/utils/zodDocterSchema";
+import { AdminSchema } from "@/utils/zodAdminSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { onSubmitSignup as onSubmit } from "@/components/server/docterauth";
+import { onSubmitSignup } from "@/actions/AdminAuth.action";
 import {
   Select,
   SelectContent,
@@ -21,15 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
 
 const Signup = () => {
-  const [avdays, setAvDays] = useState([]);
-  const [specs, setSpecs] = useState([]);
-
   const form = useForm({
-    resolver: zodResolver(docterSchema),
+    resolver: zodResolver(AdminSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -38,34 +33,35 @@ const Signup = () => {
       dob: "",
       phone: "",
       gender: "",
-      avatar: "",
-      specialties: [],
       address: "",
-      availableDays: [],
+      HospitalName: "",
     },
   });
 
-  const onSubmitSignup = async (values) => {
-    console.log(values.username);
+  const onSubmit = async (values) => {
+    console.log(JSON.stringify(values));
+    await onSubmitSignup(values);
   };
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="h-40  max-w-screen-sm space-y-3"
+        >
+          <h1 className="heading__gradient text-3xl font-extrabold text-center">
+            Hospital Management System
+          </h1>
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormControl>
                   <Input placeholder="John Doe" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -76,11 +72,9 @@ const Signup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
-                <FormDescription>Enter your email address.</FormDescription>
                 <FormControl>
                   <Input placeholder="abc@xyz.com" {...field} />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
@@ -91,7 +85,6 @@ const Signup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-                <FormDescription>Enter secure password please</FormDescription>
                 <FormControl>
                   <Input
                     placeholder="************"
@@ -109,7 +102,6 @@ const Signup = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
-                <FormDescription>Confirm your password.</FormDescription>
                 <FormControl>
                   <Input
                     placeholder="************"
@@ -157,7 +149,11 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Gender</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} defaultValue="male">
+                  <Select
+                    onValueChange={field.onChange}
+                    {...field}
+                    defaultValue="male"
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select your gender" />
                     </SelectTrigger>
@@ -185,39 +181,23 @@ const Signup = () => {
               </FormItem>
             )}
           />
-          <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Available Days
-          </span>
-          {days.map((day) => (
-            <div key={day}>
-              <Checkbox
-                value={day}
-                onChange={(e) =>
-                  setAvDays((prevDays) => [...prevDays, e.target.value])
-                }
-              />
-              <label className="text-gray-500 text-sm">{day}</label>
-            </div>
-          ))}
 
-          <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Specialties
+          <FormField
+            control={form.control}
+            name="HospitalName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Hospital name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Hospital name here" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <span className="w-full px-auto">
+            <Button type="submit">Submit</Button>
           </span>
-          {specialties.map((specs) => (
-            <div key={specs}>
-              <Checkbox
-                value={specs}
-                onChange={(e) =>
-                  setSpecs((prevSpecs) => [...prevSpecs, e.target.value])
-                }
-              />
-              <label className="text-gray-500 text-sm">
-                {specs}
-              </label>
-            </div>
-          ))}
-
-          <Button type="submit">Submit</Button>
         </form>
       </Form>
     </div>
@@ -225,33 +205,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-const specialties = [
-  "Cardiology",
-  "Dermatology",
-  "Endocrinology",
-  "Gastroenterology",
-  "General Surgery",
-  "Neurology",
-  "Nephrology",
-  "Obstetrics and Gynecology",
-  "Oncology",
-  "Orthopedic Surgery",
-  "Otolaryngology",
-  "Pathology",
-  "Pediatrics",
-  "Psychiatry",
-  "Pulmonology",
-  "Rheumatology",
-  "Urology",
-];
-
-const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
