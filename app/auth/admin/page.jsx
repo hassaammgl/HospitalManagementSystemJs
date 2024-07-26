@@ -48,9 +48,9 @@ const Signup = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="h-40  max-w-screen-sm space-y-3"
+          className="h-40  max-w-screen-sm  space-y-3 xl:max-w-screen-xl "
         >
-          <h1 className="heading__gradient text-3xl font-extrabold text-center">
+          <h1 className="heading__gradient py-1 font-extrabold text-center sm:text-4xl md:text-5xl">
             Hospital Management System
           </h1>
           <FormField
@@ -60,7 +60,11 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input
+                    className="xl:w-72"
+                    placeholder="John Doe"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,7 +77,11 @@ const Signup = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="abc@xyz.com" {...field} />
+                  <Input
+                    className="xl:w-72"
+                    placeholder="abc@xyz.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,6 +97,7 @@ const Signup = () => {
                   <Input
                     placeholder="************"
                     type="password"
+                    className="xl:w-72"
                     {...field}
                   />
                 </FormControl>
@@ -106,6 +115,7 @@ const Signup = () => {
                   <Input
                     placeholder="************"
                     type="password"
+                    className="xl:w-72"
                     {...field}
                   />
                 </FormControl>
